@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import socketIoClient from 'socket.io-client';
 
+import Lyric from './Lyric.js';
+import LyricPrompter from './LyricPrompter.js';
+import testLyric from './testlyric.js';
+
 const PORT = 4001;
 
 class App extends Component {
@@ -27,6 +31,18 @@ class App extends Component {
     });
   }
 
+  getCurrentLine = () => {
+    return 'Current line';
+  };
+
+  getPreviousLine = () => {
+    return 'Previous line';
+  };
+
+  getNextLine = () => {
+    return 'Next line';
+  }
+
   send = () => {
     let message = 'Testing connection';
     if (!this.state.socket) {
@@ -39,10 +55,15 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <div className='lyric'>
-          {this.state.lyric}
-        </div>
+        <Lyric text={testLyric}></Lyric>
+
         <button onClick={() => this.send()}>Send message</button>
+
+        <LyricPrompter
+          prevLine={this.getPreviousLine()}
+          currentLine={this.getCurrentLine()}
+          nextLine={this.getNextLine()}>
+          </LyricPrompter>
       </div>
     );
   }
