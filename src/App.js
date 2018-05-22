@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import socketIoClient from 'socket.io-client';
 
+import Colors from './colors.js';
 import LyricPrompter from './LyricPrompter.js';
 import testLyric from './testlyric.js';
 
@@ -8,14 +9,15 @@ const PORT = 4001;
 // const IP = '192.168.1.62';
 const IP = '10.0.1.3';
 
-class App extends Component {
+export default class App extends Component {
   constructor() {
     super();
 
     this.state = {
       endpoint: `http://${IP}:${PORT}`,
       lyric: testLyric,
-      currentLyricIndex: 0
+      currentLyricIndex: 0,
+      visibleLines: 5
     }
   }
 
@@ -29,6 +31,8 @@ class App extends Component {
     });
 
     socket.on('lyric-index', (index) => {
+      // Don't allow too much overflow
+      if (index > this.state.lyric.lines.length) return;
       this.setState({
         currentLyricIndex: index
       });
@@ -62,18 +66,43 @@ class App extends Component {
 
   render() {
     return (
-      <div className='App'>
-        <button onClick={() => this.prevButtonClicked()}>Previous line</button>
-        <button onClick={() => this.nextButtonClicked()}>Next line</button>
-
+      <div style={styles.container}>
         <LyricPrompter
           lyric={this.state.lyric}
           currentLyricIndex={this.state.currentLyricIndex}
-          visibleLines={5}>
+          visibleLines={this.state.visibleLines}>
         </LyricPrompter>
+        <div style={styles.buttonContainer}>
+          <button
+            onClick={() => this.prevButtonClicked()}
+            style={styles.button}>
+            Previous line
+          </button>
+          <button
+            onClick={() => this.nextButtonClicked()}
+            style={styles.button}>
+            Next line
+          </button>
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+const styles = {
+  container: {
+    height: '100%',
+    display: 'flex',
+    flexFlow: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    background: Colors.background
+  },
+  buttonContainer: {
+
+  },
+  button: {
+    maxWidth: '100px'
+  }
+};

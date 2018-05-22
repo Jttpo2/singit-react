@@ -1,11 +1,11 @@
 import React from 'react';
 
-class LyricPrompter extends React.Component {
-  constructor(props) {
-    super(props);
+import LyricLine from './LyricLine.js';
 
-
-  }
+export default class LyricPrompter extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  // }
 
   getTidiedLine = (index) => {
     let line = this.props.lyric.lines[index];
@@ -13,48 +13,103 @@ class LyricPrompter extends React.Component {
     return line;
   }
 
-  getLinesToDisplay = () => {
+  getPreviousLines = () => {
     const noOfLines = this.props.visibleLines;
     const currentIndex = this.props.currentLyricIndex;
-    const allLines = this.props.lyric.lines;
 
     const noOfPreviousLines = (noOfLines - 1) / 2;
-    const noOfUpcomingLines = (noOfLines + 1) / 2;
 
     const lines = [];
 
-    // Prev noOfPreviousLines
     let i = currentIndex - noOfPreviousLines;
     i = i > 0 ? i : 0;
     for (; i<currentIndex; i++) {
+      lines.push(
+        <LyricLine
+          line={this.getTidiedLine(i)}
+          offset={i - currentIndex}>
+        </LyricLine>);
+      };
+      return lines;
+    };
 
-      lines.push(<div>{this.getTidiedLine(i)}</div>);
+    getCurrentLine = () => {
+      const currentIndex = this.props.currentLyricIndex;
+      return <LyricLine
+        isCurrent={true}
+        line={this.getTidiedLine(currentIndex)}>
+      </LyricLine>;
     }
 
-    // Current line
-    lines.push(<div><strong>{this.getTidiedLine(currentIndex)}</strong></div>);
+    getUpcomingLines = () => {
+      const noOfLines = this.props.visibleLines;
+      const currentIndex = this.props.currentLyricIndex;
+      const allLines = this.props.lyric.lines;
 
-    // Upcoming lines
-    let end = currentIndex + noOfUpcomingLines;
-    end = end < allLines.length ? end : allLines.length;
-    for (let i=currentIndex + 1; i<end; i++) {
-      lines.push(<div>{this.getTidiedLine(i)}</div>);
+      const noOfUpcomingLines = (noOfLines + 1) / 2;
+
+      const lines = [];
+
+      let end = currentIndex + noOfUpcomingLines;
+      end = end < allLines.length ? end : allLines.length;
+      for (let i=currentIndex + 1; i<end; i++) {
+        lines.push(
+          <LyricLine
+            line={this.getTidiedLine(i)}
+            offset={i - currentIndex}>
+          </LyricLine>);
+        }
+        return lines;
+      }
+
+      render() {
+        return (
+          <div style={styles.container}>
+            <div style={styles.prevLines}>
+              {this.getPreviousLines()}
+            </div>
+            <div style={styles.currentLine}>
+              {this.getCurrentLine()}
+            </div>
+            <div style={styles.upcomingLines}>
+              {this.getUpcomingLines()}
+            </div>
+          </div>
+        );
+      }
     }
 
-    return lines;
-  }
+    const styles = {
+      container: {
+        flex: '0.3',
+        width: '90%',
 
+        display: 'flex',
+        flexFlow: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // margin: '2vmax',
+        // background: 'green'
+      },
+      currentLine: {
+        flex: 0.2,
 
-  render() {
-    const lines = [];
+        display: 'flex',
+        flexFlow: 'column',
+        justifyContent: 'center'
 
-    return (
-      <div className='line-container'>
-        {/* <div>{this.props.lyric.lines[this.props.currentLyricIndex]}</div> */}
-        {this.getLinesToDisplay()}
-      </div>
-    );
-  }
-}
+      },
+      prevLines: {
+        flex: 0.4,
 
-export default LyricPrompter;
+        display: 'flex',
+        flexFlow: 'column',
+        justifyContent: 'flex-end'
+      },
+      upcomingLines: {
+        flex: 0.4,
+        flexFlow: 'column',
+        justifyContent: 'flex-start'
+
+      }
+    }
