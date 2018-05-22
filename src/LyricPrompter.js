@@ -3,16 +3,6 @@ import React from 'react';
 import LyricLine from './LyricLine.js';
 
 export default class LyricPrompter extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
-  // getTidiedLine = (index) => {
-  //   let line = this.props.lyric.lines[index];
-  //   // line = line === '' ? '' : line;
-  //   return line;
-  // }
-
   getPreviousLines = () => {
     const currentIndex = this.props.currentLyricIndex;
     const lines = [];
@@ -97,7 +87,6 @@ export default class LyricPrompter extends React.Component {
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center'
-        // margin: '2vmax',
         // background: 'green'
       },
       lineContainer: {

@@ -4,10 +4,6 @@ import Color from 'color';
 import Colors from './colors.js';
 
 export default class LyricLine extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   darkenByOffset = (color, offset) => {
     const darkeningStep = 1;
     // More darkening inititially, less the further from zero offset we get
@@ -48,11 +44,9 @@ const styles ={
     color: Colors.currentLine
   },
   previous: {
-    // color: Colors.prevLine,
     fontSize: 'calc(10px + 0.5vw)'
   },
   upcoming: {
-    // color: Colors.upcomingLine,
     fontSize: 'calc(12px + 1vw)'
   }
 }
