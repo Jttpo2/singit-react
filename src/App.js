@@ -32,7 +32,8 @@ export default class App extends Component {
 
     socket.on('lyric-index', (index) => {
       // Don't allow too much overflow
-      if (index > this.state.lyric.lines.length) return;
+      if (index > this.state.lyric.lines.length || index < 0) return;
+
       this.setState({
         currentLyricIndex: index
       });
