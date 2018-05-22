@@ -27,13 +27,15 @@ const styles ={
   },
   current: {
     fontWeight: 'bold',
-    fontSize: 'calc(18px + 0.5vw)',
+    fontSize: 'calc(16px + 2vw)',
     color: Colors.currentLine
   },
   previous: {
-    color: Colors.prevLine
+    color: Colors.prevLine,
+    fontSize: 'calc(10px + 0.5vw)'
   },
   upcoming: {
-    color: Colors.upcomingLine
+    color: Colors.upcomingLine,
+    fontSize: 'calc(12px + 1vw)'
   }
 }

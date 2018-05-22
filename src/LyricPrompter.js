@@ -113,17 +113,17 @@ export default class LyricPrompter extends React.Component {
         alignItems: 'center'
       },
       currentLine: {
-        flex: 0.2,
+        flex: 0.4,
 
         justifyContent: 'center'
       },
       prevLines: {
-        flex: 0.4,
+        flex: 0.3,
 
         justifyContent: 'flex-end'
       },
       upcomingLines: {
-        flex: 0.4,
+        flex: 0.3,
 
         justifyContent: 'flex-start'
       }

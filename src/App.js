@@ -17,7 +17,7 @@ export default class App extends Component {
       endpoint: `http://${IP}:${PORT}`,
       lyric: testLyric,
       currentLyricIndex: 0,
-      visibleLines: 5
+      visibleLines: 3
     }
   }
 
