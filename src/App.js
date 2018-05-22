@@ -56,14 +56,20 @@ class App extends Component {
     this.send('lyric-index', this.state.currentLyricIndex + 1);
   };
 
+  prevButtonClicked = () => {
+    this.send('lyric-index', this.state.currentLyricIndex -1);
+  };
+
   render() {
     return (
       <div className='App'>
+        <button onClick={() => this.prevButtonClicked()}>Previous line</button>
         <button onClick={() => this.nextButtonClicked()}>Next line</button>
 
         <LyricPrompter
           lyric={this.state.lyric}
-          currentLyricIndex={this.state.currentLyricIndex}>
+          currentLyricIndex={this.state.currentLyricIndex}
+          visibleLines={5}>
         </LyricPrompter>
       </div>
     );
