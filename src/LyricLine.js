@@ -1,14 +1,30 @@
 import React from 'react';
+import Color from 'color';
 
 import Colors from './colors.js';
 
 export default class LyricLine extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  darkenByOffset = (color, offset) => {
+    const darkeningStep = 0.3;
+    return Color(Colors.prevLine).darken(Math.abs(this.props.offset - 1) * darkeningStep)
+  }
+
   render() {
     let lineStyle = Object.assign({},
       styles.line,
       this.props.isCurrent && styles.current,
       this.props.offset < 0 && styles.previous,
       this.props.offset > 0 && styles.upcoming,
+      this.props.offset < 0 && {
+        color: this.darkenByOffset(Colors.prevLine, this.props.offset)
+      },
+      this.props.offset > 0 && {
+        color: this.darkenByOffset(Colors.upcomingLine, this.props.offset)
+      },
     );
 
     return(
@@ -31,11 +47,11 @@ const styles ={
     color: Colors.currentLine
   },
   previous: {
-    color: Colors.prevLine,
+    // color: Colors.prevLine,
     fontSize: 'calc(10px + 0.5vw)'
   },
   upcoming: {
-    color: Colors.upcomingLine,
+    // color: Colors.upcomingLine,
     fontSize: 'calc(12px + 1vw)'
   }
 }

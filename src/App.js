@@ -17,7 +17,9 @@ export default class App extends Component {
       endpoint: `http://${IP}:${PORT}`,
       lyric: testLyric,
       currentLyricIndex: 0,
-      visibleLines: 3
+      // visibleLines: 5
+      noOfPrevLines: 0,
+      noOfUpcomingLines: 3
     }
   }
 
@@ -71,7 +73,8 @@ export default class App extends Component {
         <LyricPrompter
           lyric={this.state.lyric}
           currentLyricIndex={this.state.currentLyricIndex}
-          visibleLines={this.state.visibleLines}>
+          noOfPrevLines={this.state.noOfPrevLines}
+          noOfUpcomingLines={this.state.noOfUpcomingLines}>
         </LyricPrompter>
         <div style={styles.buttonContainer}>
           <button

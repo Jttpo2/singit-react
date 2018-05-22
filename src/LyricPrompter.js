@@ -7,26 +7,22 @@ export default class LyricPrompter extends React.Component {
   //   super(props);
   // }
 
-  getTidiedLine = (index) => {
-    let line = this.props.lyric.lines[index];
-    line = line === '' ? '' : line;
-    return line;
-  }
+  // getTidiedLine = (index) => {
+  //   let line = this.props.lyric.lines[index];
+  //   // line = line === '' ? '' : line;
+  //   return line;
+  // }
 
   getPreviousLines = () => {
-    const noOfLines = this.props.visibleLines;
     const currentIndex = this.props.currentLyricIndex;
-
-    const noOfPreviousLines = (noOfLines - 1) / 2;
-
     const lines = [];
 
-    let i = currentIndex - noOfPreviousLines;
+    let i = currentIndex - this.props.noOfPrevLines;
     i = i > 0 ? i : 0;
     for (; i<currentIndex; i++) {
       lines.push(
         <LyricLine
-          line={this.getTidiedLine(i)}
+          line={this.props.lyric.lines[i]}
           offset={i - currentIndex}>
         </LyricLine>);
       };
@@ -37,25 +33,22 @@ export default class LyricPrompter extends React.Component {
       const currentIndex = this.props.currentLyricIndex;
       return <LyricLine
         isCurrent={true}
-        line={this.getTidiedLine(currentIndex)}>
+        line={this.props.lyric.lines[currentIndex]}
+        offset={0}>
       </LyricLine>;
     }
 
     getUpcomingLines = () => {
-      const noOfLines = this.props.visibleLines;
       const currentIndex = this.props.currentLyricIndex;
       const allLines = this.props.lyric.lines;
 
-      const noOfUpcomingLines = (noOfLines + 1) / 2;
-
       const lines = [];
-
-      let end = currentIndex + noOfUpcomingLines;
+      let end = currentIndex + this.props.noOfUpcomingLines + 1;
       end = end < allLines.length ? end : allLines.length;
       for (let i=currentIndex + 1; i<end; i++) {
         lines.push(
           <LyricLine
-            line={this.getTidiedLine(i)}
+            line={this.props.lyric.lines[i]}
             offset={i - currentIndex}>
           </LyricLine>);
         }
@@ -96,7 +89,7 @@ export default class LyricPrompter extends React.Component {
 
     const styles = {
       container: {
-        flex: '0.5',
+        flex: '0.7',
         width: '90%',
 
         display: 'flex',
