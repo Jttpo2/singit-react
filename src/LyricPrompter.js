@@ -9,7 +9,7 @@ export default class LyricPrompter extends React.Component {
 
   getTidiedLine = (index) => {
     let line = this.props.lyric.lines[index];
-    line = line === '' ? ' ' : line;
+    // line = line === '' ? ' ' : line;
     return line;
   }
 
@@ -63,15 +63,30 @@ export default class LyricPrompter extends React.Component {
       }
 
       render() {
+        const prevLinesStyle = Object.assign({},
+          styles.lineContainer,
+          styles.prevLines
+        );
+
+        const currentLineStyle = Object.assign({},
+          styles.lineContainer,
+          styles.currentLine
+        );
+
+        const upcomingLinesStyle = Object.assign({},
+          styles.lineContainer,
+          styles.upcomingLines
+        );
+
         return (
           <div style={styles.container}>
-            <div style={styles.prevLines}>
+            <div style={prevLinesStyle}>
               {this.getPreviousLines()}
             </div>
-            <div style={styles.currentLine}>
+            <div style={currentLineStyle}>
               {this.getCurrentLine()}
             </div>
-            <div style={styles.upcomingLines}>
+            <div style={upcomingLinesStyle}>
               {this.getUpcomingLines()}
             </div>
           </div>
@@ -91,25 +106,24 @@ export default class LyricPrompter extends React.Component {
         // margin: '2vmax',
         // background: 'green'
       },
+      lineContainer: {
+        display: 'flex',
+        flexFlow: 'column',
+        alignItems: 'center'
+      },
       currentLine: {
         flex: 0.2,
 
-        display: 'flex',
-        flexFlow: 'column',
         justifyContent: 'center'
-
       },
       prevLines: {
         flex: 0.4,
 
-        display: 'flex',
-        flexFlow: 'column',
         justifyContent: 'flex-end'
       },
       upcomingLines: {
         flex: 0.4,
-        flexFlow: 'column',
-        justifyContent: 'flex-start'
 
+        justifyContent: 'flex-start'
       }
     }
