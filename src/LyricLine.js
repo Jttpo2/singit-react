@@ -9,8 +9,9 @@ export default class LyricLine extends React.Component {
   }
 
   darkenByOffset = (color, offset) => {
-    const darkeningStep = 0.3;
-    return Color(Colors.prevLine).darken(Math.abs(this.props.offset - 1) * darkeningStep)
+    const darkeningStep = 1;
+    // More darkening inititially, less the further from zero offset we get
+    return Color(Colors.prevLine).darken(Math.abs(this.props.offset - 1) * darkeningStep * 1/this.props.offset)
   }
 
   render() {
