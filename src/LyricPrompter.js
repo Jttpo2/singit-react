@@ -96,19 +96,20 @@ export default class LyricPrompter extends React.Component {
 
     const styles = {
       container: {
-        flex: '0.3',
+        flex: '0.5',
         width: '90%',
 
         display: 'flex',
         flexFlow: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        textAlign: 'center'
         // margin: '2vmax',
         // background: 'green'
       },
       lineContainer: {
         display: 'flex',
-        flexFlow: 'column',
+        flexFlow: 'column wrap',
         alignItems: 'center'
       },
       currentLine: {

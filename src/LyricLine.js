@@ -27,6 +27,7 @@ const styles ={
   },
   current: {
     fontWeight: 'bold',
+    fontSize: 'calc(18px + 0.5vw)',
     color: Colors.currentLine
   },
   previous: {
