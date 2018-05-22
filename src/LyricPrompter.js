@@ -9,7 +9,7 @@ export default class LyricPrompter extends React.Component {
 
   getTidiedLine = (index) => {
     let line = this.props.lyric.lines[index];
-    // line = line === '' ? ' ' : line;
+    line = line === '' ? '' : line;
     return line;
   }
 

@@ -13,7 +13,8 @@ export default class LyricLine extends React.Component {
 
     return(
       <div style={lineStyle}>
-        {this.props.line}
+        {/* '\u00A0' is unicode for '$nbsp;', to make div have size when empty */}
+        {this.props.line !== '' ? this.props.line : '\u00A0'}
       </div>
     );
   }
