@@ -3,7 +3,8 @@ import socketIoClient from 'socket.io-client';
 
 import Colors from './colors.js';
 import LyricPrompter from './LyricPrompter.js';
-import testLyric from './testlyric.js';
+import testLyric from './testlyric3.js';
+import Search from './Search.js';
 
 const PORT = 4001;
 // const IP = '192.168.1.62';
@@ -67,9 +68,18 @@ export default class App extends Component {
     this.send('lyric-index', this.state.currentLyricIndex -1);
   };
 
+  loadSong = (song) => {
+    this.setState({
+        lyric: song
+    });
+  };
+
   render() {
     return (
       <div style={styles.container}>
+
+        <Search onResultSelected={this.loadSong}></Search>
+
         <LyricPrompter
           lyric={this.state.lyric}
           currentLyricIndex={this.state.currentLyricIndex}
@@ -98,7 +108,7 @@ const styles = {
     height: '100%',
     display: 'flex',
     flexFlow: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
 
     background: Colors.background

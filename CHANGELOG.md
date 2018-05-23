@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.3.0] - 2018-05-23
+### Added
+- Search field with result selection.
+- Mock database connection.
+
 ## [0.2.0] - 2018-05-22
 ### Added
 - Websocket setup. Message sending between devices, through local server.
