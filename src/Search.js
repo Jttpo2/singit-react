@@ -66,7 +66,7 @@ export default class Search extends React.Component {
 
 const styles = {
   container: {
-    flex: 1,
+    flex: 0.5,
     color: 'white'
   }
 }

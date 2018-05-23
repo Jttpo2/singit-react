@@ -94,8 +94,9 @@ export default class LyricPrompter extends React.Component {
       },
       lineContainer: {
         display: 'flex',
-        flexFlow: 'column wrap',
-        alignItems: 'center'
+        flexFlow: 'column nowrap',
+        alignItems: 'center',
+        overflow: 'hidden'
       },
       currentLine: {
         flex: 0.5,
