@@ -3,8 +3,6 @@ import React from 'react';
 import SearchResult from './SearchResult.js';
 import Database from './database.js';
 
-// let submitted = false;
-
 export default class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -12,8 +10,8 @@ export default class Search extends React.Component {
     this.db = new Database();
 
     this.state = {
-      searchTerm: '',
-      results: null,
+      searchTerm: 'test',
+      results: {},
       submitted: false
     };
 
@@ -25,27 +23,17 @@ export default class Search extends React.Component {
 
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(`Prev: ${this.state.submitted} Next: ${nextState.submitted}`);
-  //   // return !this.state.submitted;
-  //   let update = !(this.state.submitted || nextState.submitted);
-  //   console.log(`Update: ${update}`);
-  //   return update;
-  //   // return false;
-  //   // return true;
-  // }
+  componentWillUpdate() {
+
+  }
 
   onSearchClicked(event) {
-    // console.log(`Submitted: ${submitted}`);
-    if (this.state.submitted) return;
     this.db.search(this.state.searchTerm, this.onResultReceived);
-    this.setState({submitted: true});
-    // submitted = true;
+    event.preventDefault();
   }
 
   handleChange(event) {
     this.setState({searchTerm: event.target.value});
-    event.preventDefault();
   }
 
   onResultReceived = (results) => {
@@ -55,15 +43,12 @@ export default class Search extends React.Component {
   }
 
   render() {
-    // const resultComponents = [];
-    // // this.state.results.forEach((result) => {
-    // for (let result in this.state.results) {
-    //   console.log(result);
-    //   resultComponents.push(
-    //     <SearchResult song={result} />
-    //   );
-    //   // }, this);
-    // }
+    const resultComponents = [];
+    for (let result in this.state.results.results) {
+      resultComponents.push(
+        <SearchResult song={this.state.results.results[result]} />
+      );
+    }
 
     return (
       <div style={styles.container}>
@@ -71,11 +56,9 @@ export default class Search extends React.Component {
           <input type='text' value={this.state.searchTerm} onChange={this.handleChange}/>
           <input type='submit' value='Search' />
         </form>
-        {/* <div >
+        <div >
           {resultComponents}
-        </div> */}
-
-        <SearchResult song={this.state.results}></SearchResult>
+        </div>
       </div>
     );
   }

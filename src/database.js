@@ -13,8 +13,7 @@ const testResult = {
 class Database {
   search(term, callback) {
     console.log(`Searching for: ${term}`);
-    // callback(testResult);
-    callback(TEST_LYRIC_1);
+    callback(testResult);
   }
 }
 

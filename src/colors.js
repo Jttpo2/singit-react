@@ -1,6 +1,5 @@
 const Colors = {
-  background: 'black',
-  // background: 'white',
+  background: 'black',  
   currentLine: 'yellow',
   prevLine: 'darkgrey',
   upcomingLine: 'lightgrey'
