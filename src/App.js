@@ -108,7 +108,7 @@ const styles = {
     height: '100%',
     display: 'flex',
     flexFlow: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
 
     background: Colors.background

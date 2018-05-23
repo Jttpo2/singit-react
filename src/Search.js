@@ -45,7 +45,6 @@ export default class Search extends React.Component {
 
   onResultSelected = (id) => (event) => {
     this.db.get(id, (song) => {
-      console.log(`Song selected in search: ${song}`);
       this.props.onResultSelected(song);
     });
     this.setState({results: []});
@@ -78,7 +77,17 @@ export default class Search extends React.Component {
 
 const styles = {
   container: {
-    flex: 0.5,
-    color: 'white'
+    flex: '0.3',
+    color: 'white',
+    marginTop: '2vh',
+    width: '50%',
+
+    position: 'relative',
+    left: '17vw',
+
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
   }
 }
