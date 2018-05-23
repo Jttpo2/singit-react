@@ -3,7 +3,8 @@ import socketIoClient from 'socket.io-client';
 
 import Colors from './colors.js';
 import LyricPrompter from './LyricPrompter.js';
-import testLyric from './testlyric.js';
+import testLyric from './testlyric3.js';
+import Search from './Search.js';
 
 const PORT = 4001;
 // const IP = '192.168.1.62';
@@ -70,6 +71,9 @@ export default class App extends Component {
   render() {
     return (
       <div style={styles.container}>
+
+        <Search></Search>
+
         <LyricPrompter
           lyric={this.state.lyric}
           currentLyricIndex={this.state.currentLyricIndex}

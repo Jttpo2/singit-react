@@ -1,4 +1,4 @@
-const TEST_LYRIC_JSON = {
+const TEST_LYRIC_1 = {
   title: 'Fighting Against Conviction',
   artist: 'Bunny Wailer',
   lines: [
@@ -38,4 +38,4 @@ const TEST_LYRIC_JSON = {
   ]
 }
 
-export default TEST_LYRIC_JSON;
+export default TEST_LYRIC_1;
