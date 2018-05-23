@@ -46,7 +46,7 @@ export default class Search extends React.Component {
     const resultComponents = [];
     for (let result in this.state.results.results) {
       resultComponents.push(
-        <SearchResult song={this.state.results.results[result]} />
+        <SearchResult song={this.state.results.results[result]} key={result} />
       );
     }
 
