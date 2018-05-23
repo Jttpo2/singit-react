@@ -48,6 +48,7 @@ export default class Search extends React.Component {
       console.log(`Song selected in search: ${song}`);
       this.props.onResultSelected(song);
     });
+    this.setState({results: []});
   };
 
   render() {
