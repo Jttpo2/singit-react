@@ -68,11 +68,17 @@ export default class App extends Component {
     this.send('lyric-index', this.state.currentLyricIndex -1);
   };
 
+  loadSong = (song) => {
+    this.setState({
+        lyric: song
+    });
+  };
+
   render() {
     return (
       <div style={styles.container}>
 
-        <Search></Search>
+        <Search onResultSelected={this.loadSong}></Search>
 
         <LyricPrompter
           lyric={this.state.lyric}

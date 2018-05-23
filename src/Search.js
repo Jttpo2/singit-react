@@ -10,13 +10,14 @@ export default class Search extends React.Component {
     this.db = new Database();
 
     this.state = {
-      searchTerm: 'test',
-      results: {},
+      searchTerm: '',
+      results: [],
       submitted: false
     };
 
     this.onSearchClicked = this.onSearchClicked.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    // this.onResultSelected = this.onResultSelected.bind(this);
   }
 
   componentDidMount() {
@@ -40,15 +41,25 @@ export default class Search extends React.Component {
     this.setState({
       results: results
     });
-  }
+  };
+
+  onResultSelected = (id) => (event) => {
+    this.db.get(id, (song) => {
+      console.log(`Song selected in search: ${song}`);
+      this.props.onResultSelected(song);
+    });
+  };
 
   render() {
     const resultComponents = [];
-    for (let result in this.state.results.results) {
+    this.state.results.forEach((result, index) => {
       resultComponents.push(
-        <SearchResult song={this.state.results.results[result]} key={result} />
-      );
-    }
+          <SearchResult
+            song={result}
+            key={result.id}
+            onClick={this.onResultSelected(result.id)}/>
+        );
+    });
 
     return (
       <div style={styles.container}>
