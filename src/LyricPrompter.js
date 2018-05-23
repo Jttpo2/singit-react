@@ -13,7 +13,8 @@ export default class LyricPrompter extends React.Component {
       lines.push(
         <LyricLine
           line={this.props.lyric.lines[i]}
-          offset={i - currentIndex}>
+          offset={i - currentIndex}
+          key={i}>
         </LyricLine>);
       };
       return lines;
@@ -24,7 +25,8 @@ export default class LyricPrompter extends React.Component {
       return <LyricLine
         isCurrent={true}
         line={this.props.lyric.lines[currentIndex]}
-        offset={0}>
+        offset={0}
+        key={currentIndex}>
       </LyricLine>;
     }
 
@@ -39,7 +41,8 @@ export default class LyricPrompter extends React.Component {
         lines.push(
           <LyricLine
             line={this.props.lyric.lines[i]}
-            offset={i - currentIndex}>
+            offset={i - currentIndex}
+            key={i}>
           </LyricLine>);
         }
         return lines;
@@ -91,8 +94,9 @@ export default class LyricPrompter extends React.Component {
       },
       lineContainer: {
         display: 'flex',
-        flexFlow: 'column wrap',
-        alignItems: 'center'
+        flexFlow: 'column nowrap',
+        alignItems: 'center',
+        overflow: 'hidden'
       },
       currentLine: {
         flex: 0.5,
