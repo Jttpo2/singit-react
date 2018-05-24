@@ -82,7 +82,7 @@ export default class LyricPrompter extends React.Component {
 
     const styles = {
       container: {
-        flex: '0.4',
+        flex: '0.8',
         width: '90%',
 
         display: 'flex',
@@ -99,18 +99,18 @@ export default class LyricPrompter extends React.Component {
         overflow: 'hidden'
       },
       currentLine: {
-        flex: 0.5,
+        flex: '0.2',
 
         justifyContent: 'center'
       },
       prevLines: {
-        flex: 0.1,
+        flex: '0.1 0',
 
         justifyContent: 'flex-end'
       },
       upcomingLines: {
-        flex: 0.4,
-
+        flex: '0.4',
+        // background: 'blue',
         justifyContent: 'flex-start'
       }
     }

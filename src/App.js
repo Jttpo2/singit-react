@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import socketIoClient from 'socket.io-client';
+import Radium from 'radium';
 
 import Colors from './colors.js';
 import Song from './Song.js';
@@ -13,7 +14,7 @@ const PORT = 4001;
 // const IP = '10.0.1.3';
 const IP = '192.168.10.115';
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super();
 
@@ -23,7 +24,7 @@ export default class App extends Component {
       currentLyricIndex: 0,
       // visibleLines: 5
       noOfPrevLines: 0,
-      noOfUpcomingLines: 2
+      noOfUpcomingLines: 3
     }
   }
 
@@ -95,24 +96,27 @@ export default class App extends Component {
     return (
       <div style={styles.container}>
 
-        <Search onResultSelected={this.loadSong}></Search>
-        <PasteLoader onLoadFunc={this.loadFromForm}/>
+        {/* <Search onResultSelected={this.loadSong}></Search> */}
+        {/* <PasteLoader onLoadFunc={this.loadFromForm}/> */}
 
         <LyricPrompter
           lyric={this.state.lyric}
           currentLyricIndex={this.state.currentLyricIndex}
           noOfPrevLines={this.state.noOfPrevLines}
-          noOfUpcomingLines={this.state.noOfUpcomingLines}>
+          noOfUpcomingLines={this.state.noOfUpcomingLines}
+          style={styles.lyricPrompter}>
         </LyricPrompter>
         <div style={styles.buttonContainer}>
           <button
             onClick={() => this.prevButtonClicked()}
-            style={styles.button}>
+            style={styles.button}
+            key='prevButton'>
             Previous line
           </button>
           <button
             onClick={() => this.nextButtonClicked()}
-            style={styles.button}>
+            style={styles.button}
+            key='nextButton'>
             Next line
           </button>
         </div>
@@ -121,20 +125,37 @@ export default class App extends Component {
   }
 }
 
+export default Radium(App);
+
 const styles = {
   container: {
     height: '100%',
     display: 'flex',
     flexFlow: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
 
     background: Colors.background
   },
   buttonContainer: {
+    position: 'absolute',
+    // flex: 0.5,
+    height: '30vh',
+    width: '100%',
+    bottom: 0,
 
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'flex-start'
   },
   button: {
-    maxWidth: '100px'
+    // maxWidth: '100px',
+    flex: 0.5,
+    background: '#f2f2f2',
+    border: 'none',
+
+    ':focus': {
+      outline: 'none'
+    }
   }
 };
