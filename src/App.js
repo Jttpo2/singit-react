@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import socketIoClient from 'socket.io-client';
 import Radium from 'radium';
+import { slide as Menu } from 'react-burger-menu';
 
 import Colors from './colors.js';
 import Song from './Song.js';
@@ -51,6 +52,10 @@ class App extends Component {
     });
   }
 
+  showSettings(e) {
+    e.preventDefault();
+  }
+
   send = (header, content) => {
     if (!this.state.socket) {
       alert('No socket.');
@@ -74,8 +79,8 @@ class App extends Component {
 
   loadSong = (song) => {
     this.setState({
-        lyric: song,
-        currentLyricIndex: 0
+      lyric: song,
+      currentLyricIndex: 0
     });
   };
 
@@ -86,76 +91,94 @@ class App extends Component {
         'unknown',
         this._convertToLyric(text)
       ));
-  };
+    };
 
-  _convertToLyric(stringLiteral) {
-    return stringLiteral.split('\n');
-  }
+    _convertToLyric(stringLiteral) {
+      return stringLiteral.split('\n');
+    }
 
-  render() {
-    return (
-      <div style={styles.container}>
+    render() {
+      // const menu = <Menu style={styles.menu}>
+      //   <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a>
+      // </Menu>;
 
-        {/* <Search onResultSelected={this.loadSong}></Search> */}
-        {/* <PasteLoader onLoadFunc={this.loadFromForm}/> */}
+      return (
+        <div style={styles.container}>
+          {/* {menu} */}
 
-        <LyricPrompter
-          lyric={this.state.lyric}
-          currentLyricIndex={this.state.currentLyricIndex}
-          noOfPrevLines={this.state.noOfPrevLines}
-          noOfUpcomingLines={this.state.noOfUpcomingLines}
-          style={styles.lyricPrompter}>
-        </LyricPrompter>
-        <div style={styles.buttonContainer}>
-          <button
-            onClick={() => this.prevButtonClicked()}
-            style={styles.button}
-            key='prevButton'>
-            Previous line
-          </button>
-          <button
-            onClick={() => this.nextButtonClicked()}
-            style={styles.button}
-            key='nextButton'>
-            Next line
-          </button>
+          {/* <Search onResultSelected={this.loadSong}></Search> */}
+          {/* <PasteLoader onLoadFunc={this.loadFromForm}/> */}
+
+          <LyricPrompter
+            lyric={this.state.lyric}
+            currentLyricIndex={this.state.currentLyricIndex}
+            noOfPrevLines={this.state.noOfPrevLines}
+            noOfUpcomingLines={this.state.noOfUpcomingLines}
+            style={styles.lyricPrompter}>
+          </LyricPrompter>
+          <div style={styles.buttonContainer}>
+            <button
+              onClick={() => this.prevButtonClicked()}
+              style={styles.button}
+              key='prevButton'>
+              Previous line
+            </button>
+            <button
+              onClick={() => this.nextButtonClicked()}
+              style={styles.button}
+              key='nextButton'>
+              Next line
+            </button>
+          </div>
         </div>
-      </div>
-    );
-  }
-}
-
-export default Radium(App);
-
-const styles = {
-  container: {
-    height: '100%',
-    display: 'flex',
-    flexFlow: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    background: Colors.background
-  },
-  buttonContainer: {
-    position: 'absolute',
-    // flex: 0.5,
-    height: '30vh',
-    width: '100%',
-    bottom: 0,
-
-    display: 'flex',
-    flexFlow: 'row',
-    justifyContent: 'flex-start'
-  },
-  button: {
-    // maxWidth: '100px',
-    flex: 0.5,
-    background: '#f2f2f2',
-    border: 'none',
-
-    ':focus': {
-      outline: 'none'
+      );
     }
   }
-};
+
+  export default Radium(App);
+
+  const styles = {
+    container: {
+      height: '100%',
+      display: 'flex',
+      flexFlow: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+
+      background: Colors.background
+    },
+    buttonContainer: {
+      position: 'absolute',
+      // flex: 0.5,
+      height: '30vh',
+      width: '100%',
+      bottom: 0,
+
+      display: 'flex',
+      flexFlow: 'row',
+      justifyContent: 'flex-start'
+    },
+    button: {
+      // maxWidth: '100px',
+      flex: 0.5,
+      background: Colors.ctrlButtonBackground,
+      border: 'none',
+
+      ':focus': {
+        outline: 'none'
+      }
+    },
+    // menu: {
+    //   bmBurgerButton: {
+    //     position: 'fixed',
+    //     width: '36px',
+    //     height: '30px',
+    //     left: '36px',
+    //     top: '36px'
+    //   },
+    //   bmBurgerBars: {
+    //     background: '#373a47'
+    //   }
+    //
+    // }
+  };
