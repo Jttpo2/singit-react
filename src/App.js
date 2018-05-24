@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import socketIoClient from 'socket.io-client';
 
 import Colors from './colors.js';
+import Song from './Song.js';
 import LyricPrompter from './LyricPrompter.js';
 import testLyric from './testlyric3.js';
 import Search from './Search.js';
@@ -22,7 +23,7 @@ export default class App extends Component {
       currentLyricIndex: 0,
       // visibleLines: 5
       noOfPrevLines: 0,
-      noOfUpcomingLines: 3
+      noOfUpcomingLines: 2
     }
   }
 
@@ -78,18 +79,15 @@ export default class App extends Component {
   };
 
   loadFromForm = (text) => {
-    // console.log(JSON.stringify(this._convertToLyric(text)));
-
     this.loadSong(
-      {
-        title: 'Pasted by user',
-        artist: 'unknown',
-        lines: this._convertToLyric(text)
-      });
+      new Song(
+        'Pasted by user',
+        'unknown',
+        this._convertToLyric(text)
+      ));
   };
 
   _convertToLyric(stringLiteral) {
-
     return stringLiteral.split('\n');
   }
 
