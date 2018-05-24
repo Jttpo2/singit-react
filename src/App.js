@@ -5,6 +5,7 @@ import Colors from './colors.js';
 import LyricPrompter from './LyricPrompter.js';
 import testLyric from './testlyric3.js';
 import Search from './Search.js';
+import PasteLoader from './PasteLoader.js';
 
 const PORT = 4001;
 // const IP = '192.168.1.62';
@@ -76,11 +77,28 @@ export default class App extends Component {
     });
   };
 
+  loadFromForm = (text) => {
+    // console.log(JSON.stringify(this._convertToLyric(text)));
+
+    this.loadSong(
+      {
+        title: 'Pasted by user',
+        artist: 'unknown',
+        lines: this._convertToLyric(text)
+      });
+  };
+
+  _convertToLyric(stringLiteral) {
+
+    return stringLiteral.split('\n');
+  }
+
   render() {
     return (
       <div style={styles.container}>
 
         <Search onResultSelected={this.loadSong}></Search>
+        <PasteLoader onLoadFunc={this.loadFromForm}/>
 
         <LyricPrompter
           lyric={this.state.lyric}

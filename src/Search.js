@@ -29,8 +29,8 @@ export default class Search extends React.Component {
   }
 
   onSearchClicked(event) {
-    this.db.search(this.state.searchTerm, this.onResultReceived);
     event.preventDefault();
+    this.db.search(this.state.searchTerm, this.onResultReceived);
   }
 
   handleChange(event) {
