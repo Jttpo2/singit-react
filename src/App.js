@@ -8,7 +8,8 @@ import Search from './Search.js';
 
 const PORT = 4001;
 // const IP = '192.168.1.62';
-const IP = '10.0.1.3';
+// const IP = '10.0.1.3';
+const IP = '192.168.10.115';
 
 export default class App extends Component {
   constructor() {
@@ -70,7 +71,8 @@ export default class App extends Component {
 
   loadSong = (song) => {
     this.setState({
-        lyric: song
+        lyric: song,
+        currentLyricIndex: 0
     });
   };
 
