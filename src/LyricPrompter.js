@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import LyricLine from './LyricLine.js';
 
@@ -38,79 +39,61 @@ export default class LyricPrompter extends React.Component {
       let end = currentIndex + this.props.noOfUpcomingLines + 1;
       end = end < allLines.length ? end : allLines.length;
       for (let i=currentIndex + 1; i<end; i++) {
-        lines.push(
-          <LyricLine
-            line={this.props.lyric.lines[i]}
-            offset={i - currentIndex}
-            key={i}>
-          </LyricLine>);
-        }
-        return lines;
+        lines.push(<LyricLine
+          line={this.props.lyric.lines[i]}
+          offset={i - currentIndex}
+          key={i}>
+        </LyricLine>);
       }
-
-      render() {
-        const prevLinesStyle = Object.assign({},
-          styles.lineContainer,
-          styles.prevLines
-        );
-
-        const currentLineStyle = Object.assign({},
-          styles.lineContainer,
-          styles.currentLine
-        );
-
-        const upcomingLinesStyle = Object.assign({},
-          styles.lineContainer,
-          styles.upcomingLines
-        );
-
-        return (
-          <div style={styles.container}>
-            <div style={prevLinesStyle}>
-              {this.getPreviousLines()}
-            </div>
-            <div style={currentLineStyle}>
-              {this.getCurrentLine()}
-            </div>
-            <div style={upcomingLinesStyle}>
-              {this.getUpcomingLines()}
-            </div>
-          </div>
-        );
-      }
+      return lines;
     }
 
-    const styles = {
-      container: {
-        flex: '0.4',
-        width: '90%',
-
-        display: 'flex',
-        flexFlow: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center'
-        // background: 'green'
-      },
-      lineContainer: {
-        display: 'flex',
-        flexFlow: 'column nowrap',
-        alignItems: 'center',
-        overflow: 'hidden'
-      },
-      currentLine: {
-        flex: 0.5,
-
-        justifyContent: 'center'
-      },
-      prevLines: {
-        flex: 0.1,
-
-        justifyContent: 'flex-end'
-      },
-      upcomingLines: {
-        flex: 0.4,
-
-        justifyContent: 'flex-start'
-      }
+    render() {
+      return (
+        <Container>
+          <PrevLines>
+            {this.getPreviousLines()}
+          </PrevLines>
+          <CurrentLine>
+            {this.getCurrentLine()}
+          </CurrentLine>
+          <UpcomingLines>
+            {this.getUpcomingLines()}
+          </UpcomingLines>
+        </Container>
+      );
     }
+  }
+
+  const Container = styled.div`
+  height: 100%;
+  width: 90%;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  `;
+
+  const LineContainer = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  overflow: hidden;
+  `;
+
+  const CurrentLine = LineContainer.extend`
+    flex: .2;
+    justify-content: center;
+  `;
+
+  const PrevLines = LineContainer.extend`
+  flex: .1 0;
+  justify-content: flex-end;
+  `;
+
+  const UpcomingLines = LineContainer.extend`
+  flex: 0.4;
+  justify-content: flex-start;
+  `;

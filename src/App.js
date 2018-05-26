@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import socketIoClient from 'socket.io-client';
+import styled from 'styled-components';
+import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 
 import Colors from './colors.js';
-import LyricPrompter from './LyricPrompter.js';
-import testLyric from './testlyric3.js';
+import Song from './Song.js';
+import StyledMenu from './StyledMenu.js';
+import MainView from './MainView.js';
 import Search from './Search.js';
+import PasteLoader from './PasteLoader.js';
+import testLyric from './testlyric3.js';
 
 const PORT = 4001;
 // const IP = '192.168.1.62';
 // const IP = '10.0.1.3';
 const IP = '192.168.10.115';
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super();
 
@@ -19,7 +24,6 @@ export default class App extends Component {
       endpoint: `http://${IP}:${PORT}`,
       lyric: testLyric,
       currentLyricIndex: 0,
-      // visibleLines: 5
       noOfPrevLines: 0,
       noOfUpcomingLines: 3
     }
@@ -48,6 +52,10 @@ export default class App extends Component {
     });
   }
 
+  showSettings(e) {
+    e.preventDefault();
+  }
+
   send = (header, content) => {
     if (!this.state.socket) {
       alert('No socket.');
@@ -61,64 +69,95 @@ export default class App extends Component {
     this.send('message', message);
   };
 
-  nextButtonClicked = () => {
+  nextLine = () => {
     this.send('lyric-index', this.state.currentLyricIndex + 1);
   };
 
-  prevButtonClicked = () => {
+  prevLine = () => {
     this.send('lyric-index', this.state.currentLyricIndex -1);
   };
 
   loadSong = (song) => {
     this.setState({
-        lyric: song,
-        currentLyricIndex: 0
+      lyric: song,
+      currentLyricIndex: 0
     });
+    this.goHome();
   };
 
+  loadFromForm = (text) => {
+    this.loadSong(new Song(
+      'Pasted by user',
+      'unknown',
+      this._convertToLyric(text)
+    ));
+  };
+
+  _convertToLyric(stringLiteral) {
+    return stringLiteral.split('\n');
+  }
+
+  goHome = () => {
+    this.props.history.push('/');
+  }
+
   render() {
+    const menu = (
+      <StyledMenu>
+        <nav>
+          <menu>
+            <li>
+              <Link to="/paste" className='menu-item'>Paste</Link>
+            </li>
+            <li>
+              <Link to="/search" className='menu-item'>Search</Link>
+            </li>
+          </menu>
+        </nav>
+      </StyledMenu>
+    );
+
     return (
-      <div style={styles.container}>
-
-        <Search onResultSelected={this.loadSong}></Search>
-
-        <LyricPrompter
-          lyric={this.state.lyric}
-          currentLyricIndex={this.state.currentLyricIndex}
-          noOfPrevLines={this.state.noOfPrevLines}
-          noOfUpcomingLines={this.state.noOfUpcomingLines}>
-        </LyricPrompter>
-        <div style={styles.buttonContainer}>
-          <button
-            onClick={() => this.prevButtonClicked()}
-            style={styles.button}>
-            Previous line
-          </button>
-          <button
-            onClick={() => this.nextButtonClicked()}
-            style={styles.button}>
-            Next line
-          </button>
-        </div>
-      </div>
+      <OuterContainer>
+        {menu}
+        <Container>
+          <Route exact path='/'
+          render={
+            (props) =>
+            <MainView
+              {...props}
+              handleNext={this.nextLine}
+              handlePrev={this.prevLine}
+              lyric={this.state.lyric}
+              currentLyricIndex={this.state.currentLyricIndex}
+              noOfPrevLines={this.state.noOfPrevLines}
+              noOfUpcomingLines={this.state.noOfUpcomingLines}/>
+            }
+          />
+          <Route path='/paste'
+          render={
+            (props) => <PasteLoader {...props} onLoadFunc={this.loadFromForm}/>
+          }/>
+          <Route path='/search'
+          render={
+            (props) => <Search onResultSelected={this.loadSong} />
+          } />
+        </Container>
+      </OuterContainer>
     );
   }
 }
 
-const styles = {
-  container: {
-    height: '100%',
-    display: 'flex',
-    flexFlow: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+export default withRouter(App);
 
-    background: Colors.background
-  },
-  buttonContainer: {
+const OuterContainer = styled.div`
+height: 100%;
+background: ${Colors.background};
+`;
 
-  },
-  button: {
-    maxWidth: '100px'
-  }
-};
+const Container = styled.div`
+height: 100%;
+
+display: flex;
+justify-content: center;
+`;
