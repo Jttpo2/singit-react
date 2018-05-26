@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import socketIoClient from 'socket.io-client';
-// import Radium from 'radium';
-import { slide as Menu } from 'react-burger-menu';
+import Radium from 'radium';
+// import { slide as Menu } from 'react-burger-menu';
 import styled from 'styled-components';
 
 import Colors from './colors.js';
 import Song from './Song.js';
+import StyledMenu from './StyledMenu.js';
 import LyricPrompter from './LyricPrompter.js';
 import testLyric from './testlyric3.js';
 import Search from './Search.js';
@@ -86,47 +87,33 @@ class App extends Component {
   };
 
   loadFromForm = (text) => {
-    this.loadSong(
-      new Song(
-        'Pasted by user',
-        'unknown',
-        this._convertToLyric(text)
-      ));
-    };
+    this.loadSong(new Song(
+      'Pasted by user',
+      'unknown',
+      this._convertToLyric(text)
+    ));
+  };
 
-    _convertToLyric(stringLiteral) {
-      return stringLiteral.split('\n');
-    }
+  _convertToLyric(stringLiteral) {
+    return stringLiteral.split('\n');
+  }
 
-    render() {
-      // const menu =
-      //   <StyledMenu>
-      //     <div>test</div>
-      //     {/* <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a> */}
-      //   </StyledMenu>;
+  render() {
+    const menu = (
+      <StyledMenu>
+        <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a>
+      </StyledMenu>
+    );
 
-      // const menu = <Menu styles={styles}>
-      //   {/* <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a> */}
-      //   <div>test</div>
-      // </Menu>;
-
-      const menu =
-        <StyledMenu>
-          <Menu>
-          <div>test</div>
-          {/* <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a> */}
-        </Menu>
-      </StyledMenu>;
-
-      return (
-        // <div style={styles.container}>
-        <div id='container'>
-          {menu}
+    return (
+      <div style={styles.outerContainer}>
+        {menu}
+        <div id='container' style={styles.container}>
 
           {/* <Search onResultSelected={this.loadSong}></Search> */}
           {/* <PasteLoader onLoadFunc={this.loadFromForm}/> */}
 
-          {/* <LyricPrompter
+          <LyricPrompter
             lyric={this.state.lyric}
             currentLyricIndex={this.state.currentLyricIndex}
             noOfPrevLines={this.state.noOfPrevLines}
@@ -134,163 +121,60 @@ class App extends Component {
             style={styles.lyricPrompter}>
           </LyricPrompter>
           <div style={styles.buttonContainer}>
-          <button
-          onClick={() => this.prevButtonClicked()}
-          style={styles.button}
-          key='prevButton'>
-          Previous line
-        </button>
-        <button
-        onClick={() => this.nextButtonClicked()}
-        style={styles.button}
-        key='nextButton'>
-        Next line
-      </button>
-    </div> */}
-  </div>
-);
-}
-}
-
-// export default Radium(App);
-export default App;
-
-// Workaround for styling with Styled-components, by wrapping menu in a div
-const WrappedMenu = ({className, children}) => (
-  <div className={className}>
-    {children}
-  </div>
-)
-
-// const styles = {
-//   container: {
-//     // height: '100%',
-//     // display: 'flex',
-//     // flexFlow: 'column',
-//     // justifyContent: 'center',
-//     // alignItems: 'center',
-//
-//     background: Colors.background
-//   },
-//   buttonContainer: {
-//     position: 'absolute',
-//     // flex: 0.5,
-//     height: '30vh',
-//     width: '100%',
-//     bottom: 0,
-//
-//     display: 'flex',
-//     flexFlow: 'row',
-//     justifyContent: 'flex-start'
-//   },
-//   button: {
-//     // maxWidth: '100px',
-//     flex: 0.5,
-//     background: Colors.ctrlButtonBackground,
-//     border: 'none',
-//
-//     ':focus': {
-//       outline: 'none'
-//     }
-//   },
-//   // menu: {
-//   //   bmBurgerButton: {
-//   //     position: 'fixed',
-//   //     width: '36px',
-//   //     height: '30px',
-//   //     left: '36px',
-//   //     top: '36px'
-//   //   },
-//   //   bmBurgerBars: {
-//   //     background: '#373a47'
-//   //   }
-//   //
-//   // }
-// };
-
-const StyledMenu = styled(WrappedMenu)`
-/* Position and sizing of burger button */
-.bm-burger-button {
-  position: fixed;
-  width: 36px;
-  height: 30px;
-  left: 36px;
-  top: 36px;
-}
-
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-  background: #373a47;
-}
-
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
-  height: 30px;
-  width: 24px;
-}
-
-/* Color/shape of close button cross */
-.bm-cross {
-  background: #bdc3c7;
-}
-
-/* General sidebar styles */
-.bm-menu {
-${'' /* background: #373a47; */}
-background: green;
-padding: 2.5em 1.5em 0;
-font-size: 1.15em;
-}
-
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
-}
-
-/* Wrapper for item list */
-.bm-item-list {
-  color: #b8b7ad;
-  padding: 0.8em;
-}
-
-/* Styling of overlay */
-.bm-overlay {
-  background: rgba(100, 0, 0, 0.3);
-  border: solid 3px black;
-}
-`;
-
-var styles = {
-  bmBurgerButton: {
-    position: 'fixed',
-    width: '36px',
-    height: '30px',
-    left: '36px',
-    top: '36px'
-  },
-  bmBurgerBars: {
-    background: '#373a47'
-  },
-  bmCrossButton: {
-    height: '24px',
-    width: '24px'
-  },
-  bmCross: {
-    background: '#bdc3c7'
-  },
-  bmMenu: {
-    background: 'green',
-    padding: '2.5em 1.5em 0',
-    fontSize: '1.15em'
-  },
-  bmMorphShape: {
-    fill: '#373a47'
-  },
-  bmItemList: {
-    color: '#b8b7ad',
-    padding: '0.8em'
-  },
-  bmOverlay: {
-    background: 'rgba(100, 0, 0, 0.4)'
+            <button
+              onClick={() => this.prevButtonClicked()}
+              style={styles.button}
+              key='prevButton'>
+              Previous line
+            </button>
+            <button
+              onClick={() => this.nextButtonClicked()}
+              style={styles.button}
+              key='nextButton'>
+              Next line
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
+
+export default Radium(App);
+// export default App;
+
+const styles = {
+  outerContainer: {
+    height: '100%'
+  },
+  container: {
+    height: '100%',
+    display: 'flex',
+    flexFlow: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    background: Colors.background
+  },
+  buttonContainer: {
+    position: 'absolute',
+    // flex: 0.5,
+    height: '30vh',
+    width: '100%',
+    bottom: 0,
+
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'flex-start'
+  },
+  button: {
+    // maxWidth: '100px',
+    flex: 0.5,
+    background: Colors.ctrlButtonBackground,
+    border: 'none',
+
+    ':focus': {
+      outline: 'none'
+    }
+  }
+};
