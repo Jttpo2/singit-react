@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
+### Added
+- Now able to paste in any text.
+- Separate views for main, search and paste.
+- Routing.
+- Styled-components used for styling.
 
 ## [0.3.0] - 2018-05-23
 ### Added
