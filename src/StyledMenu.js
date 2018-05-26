@@ -65,6 +65,17 @@ const StyledMenu = styled(WrappedMenu)`
   text-decoration: none;
   color: white;
   font-weight: bold;
+  font-size: calc(12px + 1vmax);
+}
+
+menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: calc(10px + 0.5vh);
 }
 
 `;

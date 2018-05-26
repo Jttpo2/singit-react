@@ -35,7 +35,7 @@ export default class PasteLoader extends React.Component {
       <form onSubmit={this.handleFormSubmit}>
         <h5>Paste text</h5>
         <PasteBox
-          rows={5}
+          rows={20}
           content={this.state.content}
           controlFunc={this.handleContentChange}
         />

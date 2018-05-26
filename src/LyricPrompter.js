@@ -66,7 +66,7 @@ export default class LyricPrompter extends React.Component {
   }
 
   const Container = styled.div`
-  flex: .4;
+  height: 100%;
   width: 90%;
 
   display: flex;
