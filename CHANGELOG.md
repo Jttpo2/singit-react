@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.4.0] - 2018-05-26
+### Added
+- Now able to paste in any text.
+- Separate views for main, search and paste.
+- Routing.
+- Styled-components used for styling.
+
 ## [0.3.0] - 2018-05-23
 ### Added
 - Search field with result selection.
