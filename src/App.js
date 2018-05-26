@@ -99,18 +99,28 @@ class App extends Component {
     }
 
     render() {
-      // const menu = <StyledMenu>
-      //   <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a>
-      // </StyledMenu>;
+      // const menu =
+      //   <StyledMenu>
+      //     <div>test</div>
+      //     {/* <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a> */}
+      //   </StyledMenu>;
 
-      const menu = <Menu styles={styles}>
-        {/* <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a> */}
-        <div>test</div>
-      </Menu>;
+      // const menu = <Menu styles={styles}>
+      //   {/* <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a> */}
+      //   <div>test</div>
+      // </Menu>;
+
+      const menu =
+        <StyledMenu>
+          <Menu>
+          <div>test</div>
+          {/* <a id="paste-loader" className="menu-item" href="/paste">Copy-paste</a> */}
+        </Menu>
+      </StyledMenu>;
 
       return (
         // <div style={styles.container}>
-          <div>
+        <div id='container'>
           {menu}
 
           {/* <Search onResultSelected={this.loadSong}></Search> */}
@@ -144,6 +154,13 @@ class App extends Component {
 
 // export default Radium(App);
 export default App;
+
+// Workaround for styling with Styled-components, by wrapping menu in a div
+const WrappedMenu = ({className, children}) => (
+  <div className={className}>
+    {children}
+  </div>
+)
 
 // const styles = {
 //   container: {
@@ -191,7 +208,7 @@ export default App;
 //   // }
 // };
 
-const StyledMenu = styled(Menu)`
+const StyledMenu = styled(WrappedMenu)`
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
@@ -208,7 +225,7 @@ const StyledMenu = styled(Menu)`
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
-  height: 24px;
+  height: 30px;
   width: 24px;
 }
 
@@ -219,10 +236,10 @@ const StyledMenu = styled(Menu)`
 
 /* General sidebar styles */
 .bm-menu {
-  ${'' /* background: #373a47; */}
-  background: green;
-  padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
+${'' /* background: #373a47; */}
+background: green;
+padding: 2.5em 1.5em 0;
+font-size: 1.15em;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -238,7 +255,8 @@ const StyledMenu = styled(Menu)`
 
 /* Styling of overlay */
 .bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(100, 0, 0, 0.3);
+  border: solid 3px black;
 }
 `;
 
