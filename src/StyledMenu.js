@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import styled from 'styled-components';
 
