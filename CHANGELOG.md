@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.5.0] - 2018-05-29
+### Added
+- Build config.
+- Lyric change propagates to all devices.
+
 ## [0.4.0] - 2018-05-26
 ### Added
 - Now able to paste in any text.

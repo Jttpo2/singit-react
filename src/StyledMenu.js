@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import Colors from './colors.js';
 
 // Workaround for styling with Styled-components, by wrapping menu in a div
-const WrappedMenu = ({className, children}) => (
-  <div className={className}>
-    <Menu children={children} />
+const WrappedMenu = (props) => (
+  <div className={props.className}>
+    <Menu {...props} />
   </div>
 );
 

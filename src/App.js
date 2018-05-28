@@ -32,7 +32,8 @@ class App extends Component {
       lyric: testLyric,
       currentLyricIndex: 0,
       noOfPrevLines: 0,
-      noOfUpcomingLines: 3
+      noOfUpcomingLines: 3,
+      isMenuOpen: false
     }
   }
 
@@ -41,7 +42,8 @@ class App extends Component {
 
     socket.on('lyric', (song) => {
       this.setState({
-        lyric: song
+        lyric: song,
+        currentLyricIndex: 0
       });
     });
 
@@ -85,10 +87,7 @@ class App extends Component {
   };
 
   loadSong = (song) => {
-    this.setState({
-      lyric: song,
-      currentLyricIndex: 0
-    });
+    this.send('lyric', song);
     this.goHome();
   };
 
@@ -104,20 +103,36 @@ class App extends Component {
     return stringLiteral.split('\n');
   }
 
+  closeMenu() {
+    this.setState({isMenuOpen: false});
+  }
+
+  handleMenuStateChange(state) {
+    this.setState({isMenuOpen: state.isOpen});
+  }
+
   goHome = () => {
     this.props.history.push('/');
   }
 
   render() {
     const menu = (
-      <StyledMenu>
+      <StyledMenu
+        isOpen={this.state.isMenuOpen}
+        onStateChange={(state) => this.handleMenuStateChange(state)}>
         <nav>
           <menu>
             <li>
-              <Link to="/paste" className='menu-item'>Paste</Link>
+              <Link
+                to="/paste"
+                className='menu-item'
+                onClick={() => this.closeMenu()}>Paste</Link>
             </li>
             <li>
-              <Link to="/search" className='menu-item'>Search</Link>
+              <Link
+                to="/search"
+                className='menu-item'
+                onClick={() => this.closeMenu()}>Search</Link>
             </li>
           </menu>
         </nav>
