@@ -77,17 +77,18 @@ export default class Search extends React.Component {
 
 const styles = {
   container: {
-    flex: '0.3',
+    // flex: '0.8',
     color: 'white',
-    marginTop: '2vh',
+    // marginTop: '2vh',
     width: '50%',
 
     position: 'relative',
-    left: '17vw',
+    // left: '17vw',
+    top: '10vh',
 
     display: 'flex',
     flexFlow: 'column nowrap',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start'
+    alignItems: 'center'
   }
 }
