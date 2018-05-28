@@ -13,8 +13,8 @@ import testLyric from './testlyric3.js';
 
 const PORT = 4001;
 // const IP = '192.168.1.62';
-// const IP = '10.0.1.3';
-const IP = '192.168.10.115';
+const IP = '10.0.1.3';
+// const IP = '192.168.10.115';
 
 class App extends Component {
   constructor() {
