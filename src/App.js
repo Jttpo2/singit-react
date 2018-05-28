@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import socketIoClient from 'socket.io-client';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
+import { Route, Link, withRouter } from 'react-router-dom';
 
 import Colors from './colors.js';
 import Song from './Song.js';
