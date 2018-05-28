@@ -11,17 +11,24 @@ import Search from './Search.js';
 import PasteLoader from './PasteLoader.js';
 import testLyric from './testlyric3.js';
 
-const PORT = 4001;
+const DEV_MODE = false;
+
+// const PORT = 4001;
+const PORT = 5000; // Heroku default port
 // const IP = '192.168.1.62';
-const IP = '10.0.1.3';
+// const IP = '10.0.1.3';
 // const IP = '192.168.10.115';
+const LOCAL_IP = 'localhost';
+const HEROKU_URL = 'singit.herokuapp.com';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      endpoint: `http://${IP}:${PORT}`,
+      // endpoint: `http://${IP}:${PORT}`,
+      // endpoint: 'https://singit.herokuapp.com',
+      endpoint: DEV_MODE ? `http://${LOCAL_IP}:${PORT}` : `https://${HEROKU_URL}`,
       lyric: testLyric,
       currentLyricIndex: 0,
       noOfPrevLines: 0,
