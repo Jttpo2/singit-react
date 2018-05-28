@@ -41,7 +41,8 @@ class App extends Component {
 
     socket.on('lyric', (song) => {
       this.setState({
-        lyric: song
+        lyric: song,
+        currentLyricIndex: 0
       });
     });
 
@@ -85,10 +86,7 @@ class App extends Component {
   };
 
   loadSong = (song) => {
-    this.setState({
-      lyric: song,
-      currentLyricIndex: 0
-    });
+    this.send('lyric', song);
     this.goHome();
   };
 
